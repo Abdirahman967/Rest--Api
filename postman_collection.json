@@ -1,0 +1,52 @@
+{
+  "info": {
+    "name": "REST API Checkpoint - Users",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "userId", "value": "PASTE_A_USER_ID_HERE" }
+  ],
+  "item": [
+    {
+      "name": "GET all users",
+      "request": { "method": "GET", "url": "{{baseUrl}}/users" }
+    },
+    {
+      "name": "POST add a user",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/users",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"age\": 27\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Save the new user's _id so PUT and DELETE can use it",
+              "if (pm.response.code === 201) { pm.collectionVariables.set('userId', pm.response.json()._id); }"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUT edit a user by id",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/users/{{userId}}",
+        "body": { "mode": "raw", "raw": "{\n  \"age\": 30\n}" }
+      }
+    },
+    {
+      "name": "DELETE a user by id",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/users/{{userId}}" }
+    }
+  ]
+}

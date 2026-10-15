@@ -1,0 +1,17 @@
+{
+  "name": "rest-api-checkpoint",
+  "version": "1.0.0",
+  "description": "A REST API for users, built with Express and Mongoose.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^18.0.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.11.1"
+  }
+}
